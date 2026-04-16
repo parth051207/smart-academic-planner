@@ -1,0 +1,1219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Smart Academic Planner – UI Prototype</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --blue: #3B6FF0;
+    --blue-light: #EEF2FF;
+    --blue-mid: #6B8FF5;
+    --red: #F0503B;
+    --red-light: #FFF0EE;
+    --yellow: #F5A623;
+    --yellow-light: #FFF8EC;
+    --green: #27B07A;
+    --green-light: #EDFBF4;
+    --gray-900: #0F1523;
+    --gray-700: #2D3550;
+    --gray-500: #6B7280;
+    --gray-300: #D1D5DB;
+    --gray-100: #F7F8FA;
+    --white: #FFFFFF;
+    --radius: 16px;
+    --radius-sm: 10px;
+    --shadow: 0 4px 24px rgba(59,111,240,0.10);
+    --shadow-card: 0 2px 12px rgba(15,21,35,0.07);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: #E8ECF7;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 32px 16px 64px;
+    gap: 0;
+  }
+
+  /* === PAGE HEADER === */
+  .page-header {
+    text-align: center;
+    margin-bottom: 48px;
+  }
+  .page-header h1 {
+    font-family: 'Sora', sans-serif;
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--gray-900);
+    letter-spacing: -0.5px;
+  }
+  .page-header p {
+    font-size: 15px;
+    color: var(--gray-500);
+    margin-top: 6px;
+  }
+
+  /* === SCREEN GRID === */
+  .screens-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px;
+    justify-content: center;
+    max-width: 1400px;
+  }
+
+  /* === PHONE FRAME === */
+  .phone-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+  }
+  .screen-label {
+    font-family: 'Sora', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--blue);
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+  }
+  .phone {
+    width: 360px;
+    min-height: 720px;
+    background: var(--white);
+    border-radius: 40px;
+    box-shadow: 0 24px 60px rgba(15,21,35,0.18), 0 0 0 8px #D1D8ED, 0 0 0 10px #C4CDE4;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* === STATUS BAR === */
+  .status-bar {
+    background: var(--white);
+    padding: 12px 24px 6px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-shrink: 0;
+  }
+  .status-bar .time { font-size: 13px; font-weight: 600; color: var(--gray-900); }
+  .status-bar .icons { display: flex; gap: 6px; align-items: center; }
+  .status-bar .icons span { font-size: 12px; color: var(--gray-700); }
+
+  /* === SCREEN CONTENT === */
+  .screen { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+
+  /* ===================== */
+  /* SCREEN 1: LOGIN       */
+  /* ===================== */
+  .login-screen {
+    background: linear-gradient(160deg, #EEF2FF 0%, #F7F8FA 60%, #FFFFFF 100%);
+    padding: 0 24px 32px;
+    justify-content: center;
+    align-items: center;
+    gap: 0;
+  }
+  .login-logo-area {
+    text-align: center;
+    padding: 40px 0 36px;
+  }
+  .login-logo-icon {
+    width: 64px; height: 64px;
+    background: var(--blue);
+    border-radius: 20px;
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 16px;
+    box-shadow: 0 8px 24px rgba(59,111,240,0.35);
+  }
+  .login-logo-icon svg { width: 34px; height: 34px; }
+  .login-logo-area h2 {
+    font-family: 'Sora', sans-serif;
+    font-size: 20px; font-weight: 700;
+    color: var(--gray-900);
+    line-height: 1.2;
+  }
+  .login-logo-area p {
+    font-size: 13px; color: var(--gray-500);
+    margin-top: 5px; font-style: italic;
+  }
+  .login-form { width: 100%; display: flex; flex-direction: column; gap: 14px; }
+  .input-group { display: flex; flex-direction: column; gap: 6px; }
+  .input-group label {
+    font-size: 12px; font-weight: 500; color: var(--gray-700);
+    letter-spacing: 0.3px;
+  }
+  .input-field {
+    background: var(--white);
+    border: 1.5px solid var(--gray-300);
+    border-radius: var(--radius-sm);
+    padding: 13px 16px;
+    font-size: 14px; color: var(--gray-900);
+    display: flex; align-items: center; gap: 10px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+  }
+  .input-field .icon { color: var(--gray-500); font-size: 15px; }
+  .input-field .placeholder { color: #B0B7C3; }
+  .input-field.focused { border-color: var(--blue); box-shadow: 0 0 0 3px rgba(59,111,240,0.12); }
+
+  .forgot-row {
+    text-align: right; margin-top: -4px;
+  }
+  .forgot-row a { font-size: 12px; color: var(--blue); font-weight: 500; text-decoration: none; }
+
+  .btn-primary {
+    background: var(--blue);
+    color: var(--white);
+    border: none; border-radius: var(--radius-sm);
+    padding: 15px;
+    font-family: 'Sora', sans-serif;
+    font-size: 15px; font-weight: 600;
+    cursor: pointer; width: 100%;
+    box-shadow: 0 6px 20px rgba(59,111,240,0.35);
+    margin-top: 4px;
+    letter-spacing: 0.2px;
+  }
+  .divider-row {
+    display: flex; align-items: center; gap: 12px; margin: 4px 0;
+  }
+  .divider-row .line { flex: 1; height: 1px; background: var(--gray-300); }
+  .divider-row span { font-size: 12px; color: var(--gray-500); }
+  .btn-google {
+    background: var(--white);
+    border: 1.5px solid var(--gray-300);
+    border-radius: var(--radius-sm);
+    padding: 13px; width: 100%;
+    font-size: 14px; font-weight: 500; color: var(--gray-700);
+    display: flex; align-items: center; justify-content: center; gap: 10px;
+    cursor: pointer; box-shadow: var(--shadow-card);
+  }
+  .g-icon {
+    width: 18px; height: 18px; border-radius: 50%;
+    background: conic-gradient(#EA4335 90deg, #FBBC05 90deg 180deg, #34A853 180deg 270deg, #4285F4 270deg);
+  }
+  .signup-row { text-align: center; margin-top: 8px; }
+  .signup-row span { font-size: 13px; color: var(--gray-500); }
+  .signup-row a { color: var(--blue); font-weight: 600; }
+
+  /* ===================== */
+  /* SCREEN 2: DASHBOARD   */
+  /* ===================== */
+  .dashboard-screen { background: var(--gray-100); }
+  .dash-header {
+    background: var(--blue);
+    padding: 20px 24px 28px;
+    position: relative; overflow: hidden;
+  }
+  .dash-header::before {
+    content: '';
+    position: absolute; top: -30px; right: -30px;
+    width: 120px; height: 120px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 50%;
+  }
+  .dash-header::after {
+    content: '';
+    position: absolute; bottom: -20px; right: 40px;
+    width: 80px; height: 80px;
+    background: rgba(255,255,255,0.05);
+    border-radius: 50%;
+  }
+  .dash-top-row {
+    display: flex; justify-content: space-between; align-items: flex-start;
+  }
+  .dash-greeting { color: rgba(255,255,255,0.8); font-size: 13px; }
+  .dash-name {
+    font-family: 'Sora', sans-serif;
+    font-size: 22px; font-weight: 700; color: var(--white);
+    margin-top: 2px;
+  }
+  .avatar {
+    width: 40px; height: 40px;
+    background: rgba(255,255,255,0.25);
+    border-radius: 50%; border: 2px solid rgba(255,255,255,0.5);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px; font-weight: 700; color: var(--white);
+    font-family: 'Sora', sans-serif;
+  }
+  .dash-stats {
+    display: flex; gap: 12px; margin-top: 18px;
+  }
+  .dash-stat {
+    background: rgba(255,255,255,0.15);
+    border-radius: var(--radius-sm); padding: 10px 14px;
+    flex: 1; backdrop-filter: blur(4px);
+  }
+  .dash-stat .val {
+    font-family: 'Sora', sans-serif;
+    font-size: 20px; font-weight: 700; color: var(--white);
+  }
+  .dash-stat .lbl { font-size: 11px; color: rgba(255,255,255,0.75); margin-top: 1px; }
+
+  .dash-body { padding: 20px 16px; flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 20px; }
+  .section-head {
+    display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;
+  }
+  .section-head h3 { font-family: 'Sora', sans-serif; font-size: 15px; font-weight: 600; color: var(--gray-900); }
+  .section-head a { font-size: 12px; color: var(--blue); font-weight: 500; }
+
+  .task-card {
+    background: var(--white);
+    border-radius: var(--radius);
+    padding: 14px 16px;
+    display: flex; align-items: center; gap: 12px;
+    box-shadow: var(--shadow-card);
+    margin-bottom: 8px;
+  }
+  .task-dot {
+    width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0;
+  }
+  .task-info { flex: 1; }
+  .task-info .name { font-size: 14px; font-weight: 500; color: var(--gray-900); }
+  .task-info .sub { font-size: 12px; color: var(--gray-500); margin-top: 2px; }
+  .task-badge {
+    font-size: 11px; font-weight: 600; padding: 4px 10px;
+    border-radius: 20px; white-space: nowrap;
+  }
+  .badge-red { background: var(--red-light); color: var(--red); }
+  .badge-yellow { background: var(--yellow-light); color: var(--yellow); }
+  .badge-green { background: var(--green-light); color: var(--green); }
+  .badge-blue { background: var(--blue-light); color: var(--blue); }
+
+  .deadline-card {
+    background: var(--white);
+    border-radius: var(--radius);
+    padding: 14px 16px;
+    display: flex; align-items: center; gap: 12px;
+    box-shadow: var(--shadow-card);
+    margin-bottom: 8px;
+    border-left: 4px solid transparent;
+  }
+  .deadline-card.urgent { border-left-color: var(--red); }
+  .deadline-card.warning { border-left-color: var(--yellow); }
+  .deadline-card.done { border-left-color: var(--green); }
+  .deadline-info { flex: 1; }
+  .deadline-info .name { font-size: 14px; font-weight: 500; color: var(--gray-900); }
+  .deadline-info .date { font-size: 12px; color: var(--gray-500); margin-top: 2px; }
+
+  .btn-row { display: flex; gap: 10px; }
+  .btn-outline {
+    flex: 1; padding: 13px;
+    border: 1.5px solid var(--blue); border-radius: var(--radius-sm);
+    font-size: 13px; font-weight: 600; color: var(--blue);
+    background: var(--blue-light); cursor: pointer;
+    font-family: 'Sora', sans-serif; text-align: center;
+  }
+  .btn-solid {
+    flex: 1; padding: 13px;
+    background: var(--blue); border: none; border-radius: var(--radius-sm);
+    font-size: 13px; font-weight: 600; color: var(--white);
+    cursor: pointer; font-family: 'Sora', sans-serif; text-align: center;
+    box-shadow: 0 4px 12px rgba(59,111,240,0.3);
+  }
+
+  /* BOTTOM NAV */
+  .bottom-nav {
+    background: var(--white);
+    border-top: 1px solid var(--gray-100);
+    padding: 10px 0 14px;
+    display: flex; justify-content: space-around; flex-shrink: 0;
+  }
+  .nav-item {
+    display: flex; flex-direction: column; align-items: center;
+    gap: 3px; cursor: pointer;
+  }
+  .nav-item .nav-icon { font-size: 20px; }
+  .nav-item .nav-lbl { font-size: 10px; color: var(--gray-500); font-weight: 500; }
+  .nav-item.active .nav-lbl { color: var(--blue); font-weight: 600; }
+  .nav-item.active .nav-icon { filter: none; }
+
+  /* ========================= */
+  /* SCREEN 3: ASSIGNMENTS     */
+  /* ========================= */
+  .assign-screen { background: var(--gray-100); }
+  .inner-header {
+    background: var(--white);
+    padding: 20px 20px 14px;
+    display: flex; align-items: center; gap: 14px;
+    border-bottom: 1px solid var(--gray-100);
+    flex-shrink: 0;
+  }
+  .back-btn {
+    width: 34px; height: 34px;
+    background: var(--gray-100); border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px; cursor: pointer;
+  }
+  .inner-header h2 {
+    font-family: 'Sora', sans-serif;
+    font-size: 18px; font-weight: 700; color: var(--gray-900);
+    flex: 1;
+  }
+  .header-action { font-size: 20px; cursor: pointer; }
+
+  .filter-tabs {
+    display: flex; gap: 8px; padding: 14px 16px;
+    overflow-x: auto; background: var(--white);
+    border-bottom: 1px solid var(--gray-100);
+    flex-shrink: 0;
+  }
+  .filter-tab {
+    padding: 6px 14px; border-radius: 20px;
+    font-size: 12px; font-weight: 600; cursor: pointer;
+    white-space: nowrap; border: 1.5px solid var(--gray-300);
+    color: var(--gray-500); background: var(--white);
+  }
+  .filter-tab.active { background: var(--blue); color: var(--white); border-color: var(--blue); }
+
+  .list-body { flex: 1; overflow-y: auto; padding: 14px 16px; display: flex; flex-direction: column; gap: 10px; }
+
+  .assign-card {
+    background: var(--white);
+    border-radius: var(--radius);
+    padding: 16px;
+    box-shadow: var(--shadow-card);
+    display: flex; flex-direction: column; gap: 8px;
+    border-left: 4px solid transparent;
+  }
+  .assign-card.urgent { border-left-color: var(--red); }
+  .assign-card.warning { border-left-color: var(--yellow); }
+  .assign-card.done { border-left-color: var(--green); }
+  .assign-top { display: flex; justify-content: space-between; align-items: flex-start; }
+  .assign-subject {
+    font-size: 11px; font-weight: 600; color: var(--blue);
+    background: var(--blue-light); padding: 3px 8px; border-radius: 6px;
+    text-transform: uppercase; letter-spacing: 0.5px;
+  }
+  .assign-name { font-size: 15px; font-weight: 600; color: var(--gray-900); line-height: 1.3; }
+  .assign-bottom { display: flex; justify-content: space-between; align-items: center; }
+  .assign-date { display: flex; align-items: center; gap: 5px; font-size: 12px; color: var(--gray-500); }
+  .status-pill {
+    font-size: 11px; font-weight: 600; padding: 4px 10px;
+    border-radius: 20px;
+  }
+  .pill-red { background: var(--red-light); color: var(--red); }
+  .pill-yellow { background: var(--yellow-light); color: var(--yellow); }
+  .pill-green { background: var(--green-light); color: var(--green); }
+
+  .fab {
+    position: sticky; bottom: 16px;
+    background: var(--blue);
+    color: var(--white); border: none;
+    border-radius: 16px; padding: 15px;
+    font-family: 'Sora', sans-serif;
+    font-size: 14px; font-weight: 600;
+    cursor: pointer; width: calc(100% - 32px);
+    margin: 0 16px 16px;
+    box-shadow: 0 6px 20px rgba(59,111,240,0.4);
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+    flex-shrink: 0;
+  }
+
+  /* ========================= */
+  /* SCREEN 4: REMINDERS       */
+  /* ========================= */
+  .reminder-screen { background: var(--gray-100); }
+  .reminder-body { flex: 1; overflow-y: auto; padding: 16px; display: flex; flex-direction: column; gap: 14px; }
+
+  .reminder-preview {
+    background: linear-gradient(135deg, var(--blue) 0%, #5B8AF7 100%);
+    border-radius: var(--radius);
+    padding: 18px 20px;
+    position: relative; overflow: hidden;
+  }
+  .reminder-preview::before {
+    content: ''; position: absolute;
+    top: -20px; right: -20px; width: 80px; height: 80px;
+    background: rgba(255,255,255,0.1); border-radius: 50%;
+  }
+  .reminder-preview .lbl { font-size: 11px; color: rgba(255,255,255,0.75); font-weight: 500; text-transform: uppercase; letter-spacing: 0.8px; }
+  .reminder-preview .text { font-size: 15px; font-weight: 600; color: var(--white); margin-top: 6px; line-height: 1.4; }
+  .reminder-preview .time-chip {
+    display: inline-flex; align-items: center; gap: 5px;
+    background: rgba(255,255,255,0.2); border-radius: 8px;
+    padding: 5px 10px; margin-top: 10px;
+    font-size: 12px; color: var(--white); font-weight: 500;
+  }
+
+  .section-card {
+    background: var(--white); border-radius: var(--radius);
+    padding: 4px 0; box-shadow: var(--shadow-card);
+    overflow: hidden;
+  }
+  .section-card-head {
+    padding: 14px 16px 10px;
+    font-family: 'Sora', sans-serif;
+    font-size: 13px; font-weight: 600; color: var(--gray-500);
+    text-transform: uppercase; letter-spacing: 0.8px;
+  }
+  .option-row {
+    padding: 14px 16px;
+    display: flex; align-items: center; justify-content: space-between;
+    border-top: 1px solid var(--gray-100);
+  }
+  .option-left { display: flex; align-items: center; gap: 12px; }
+  .option-icon {
+    width: 36px; height: 36px;
+    background: var(--blue-light); border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px;
+  }
+  .option-text .title { font-size: 14px; font-weight: 500; color: var(--gray-900); }
+  .option-text .sub { font-size: 12px; color: var(--gray-500); margin-top: 1px; }
+
+  /* Toggle */
+  .toggle {
+    width: 44px; height: 24px; border-radius: 12px;
+    background: var(--gray-300); position: relative; cursor: pointer; transition: background 0.2s;
+    flex-shrink: 0;
+  }
+  .toggle.on { background: var(--blue); }
+  .toggle::after {
+    content: ''; position: absolute;
+    width: 18px; height: 18px; border-radius: 50%;
+    background: var(--white); top: 3px; left: 3px; transition: left 0.2s;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+  }
+  .toggle.on::after { left: 23px; }
+
+  .radio-circle {
+    width: 18px; height: 18px; border-radius: 50%;
+    border: 2px solid var(--gray-300);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .radio-circle.selected { border-color: var(--blue); }
+  .radio-circle.selected::after {
+    content: ''; width: 8px; height: 8px;
+    border-radius: 50%; background: var(--blue);
+  }
+
+  /* ========================= */
+  /* SCREEN 5: LECTURES        */
+  /* ========================= */
+  .lecture-screen { background: var(--gray-100); }
+  .lecture-card {
+    background: var(--white); border-radius: var(--radius);
+    padding: 16px; box-shadow: var(--shadow-card);
+    display: flex; flex-direction: column; gap: 10px;
+  }
+  .lecture-top { display: flex; align-items: flex-start; gap: 12px; }
+  .subject-badge-wrap { flex: 1; }
+  .lecture-subject {
+    font-size: 11px; font-weight: 600; color: var(--blue);
+    background: var(--blue-light); padding: 3px 9px;
+    border-radius: 6px; display: inline-block;
+    text-transform: uppercase; letter-spacing: 0.5px;
+  }
+  .lecture-name { font-size: 15px; font-weight: 600; color: var(--gray-900); margin-top: 5px; }
+  .lecture-time { font-size: 12px; color: var(--gray-500); margin-top: 2px; }
+  .lecture-actions { display: flex; gap: 8px; }
+  .act-btn {
+    flex: 1; padding: 9px 0;
+    border-radius: var(--radius-sm);
+    font-size: 12px; font-weight: 600; cursor: pointer;
+    display: flex; align-items: center; justify-content: center; gap: 5px;
+    border: 1.5px solid transparent;
+  }
+  .act-star { background: #FFF8EC; color: var(--yellow); border-color: #FAE0A5; }
+  .act-check { background: var(--green-light); color: var(--green); border-color: #A3E8C7; }
+  .act-miss { background: var(--red-light); color: var(--red); border-color: #FBCAC3; }
+  .act-star.active { background: var(--yellow); color: var(--white); }
+  .act-check.active { background: var(--green); color: var(--white); }
+  .act-miss.active { background: var(--red); color: var(--white); }
+
+  .note-area {
+    background: var(--gray-100); border-radius: 8px;
+    padding: 10px 12px; min-height: 40px;
+  }
+  .note-area .note-placeholder { font-size: 13px; color: var(--gray-500); font-style: italic; }
+  .note-area .note-text { font-size: 13px; color: var(--gray-700); }
+
+  /* ========================= */
+  /* SCREEN 6: CALENDAR        */
+  /* ========================= */
+  .cal-screen { background: var(--gray-100); }
+  .cal-header-bar {
+    background: var(--white); padding: 20px 20px 14px;
+    display: flex; align-items: center; gap: 14px;
+    border-bottom: 1px solid var(--gray-100); flex-shrink: 0;
+  }
+  .cal-month-nav {
+    display: flex; align-items: center; gap: 0;
+    flex: 1; justify-content: center;
+  }
+  .cal-nav-btn {
+    width: 32px; height: 32px; border-radius: 8px;
+    background: var(--gray-100); border: none;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px; cursor: pointer; color: var(--gray-700);
+  }
+  .cal-month-title {
+    font-family: 'Sora', sans-serif;
+    font-size: 16px; font-weight: 700; color: var(--gray-900);
+    padding: 0 16px;
+  }
+  .cal-body { flex: 1; overflow-y: auto; padding: 0 0 16px; }
+  .cal-weekdays {
+    display: grid; grid-template-columns: repeat(7,1fr);
+    background: var(--white); padding: 0 12px 10px;
+    border-bottom: 1px solid var(--gray-100);
+  }
+  .cal-weekday { text-align: center; font-size: 12px; font-weight: 600; color: var(--gray-500); padding: 4px 0; }
+  .cal-grid {
+    display: grid; grid-template-columns: repeat(7,1fr);
+    padding: 10px 12px; gap: 2px; background: var(--white);
+    border-bottom: 1px solid var(--gray-100);
+  }
+  .cal-day {
+    aspect-ratio: 1; border-radius: 50%;
+    display: flex; flex-direction: column; align-items: center;
+    justify-content: center; cursor: pointer;
+    font-size: 13px; font-weight: 500; color: var(--gray-700);
+    position: relative; gap: 2px;
+  }
+  .cal-day.today { background: var(--blue); color: var(--white); font-weight: 700; border-radius: 50%; }
+  .cal-day.other-month { color: var(--gray-300); }
+  .cal-day.selected { background: var(--blue-light); color: var(--blue); font-weight: 600; }
+  .cal-day .dots { display: flex; gap: 2px; }
+  .cal-day .dot { width: 4px; height: 4px; border-radius: 50%; }
+
+  .cal-events { padding: 16px; display: flex; flex-direction: column; gap: 10px; }
+  .cal-events-head {
+    font-family: 'Sora', sans-serif;
+    font-size: 14px; font-weight: 600; color: var(--gray-900);
+    padding: 0 0 4px;
+  }
+  .cal-event {
+    background: var(--white); border-radius: var(--radius);
+    padding: 14px 16px; box-shadow: var(--shadow-card);
+    display: flex; align-items: center; gap: 12px;
+  }
+  .cal-event-bar { width: 4px; height: 36px; border-radius: 2px; flex-shrink: 0; }
+  .cal-event-info { flex: 1; }
+  .cal-event-info .name { font-size: 14px; font-weight: 500; color: var(--gray-900); }
+  .cal-event-info .meta { font-size: 12px; color: var(--gray-500); margin-top: 2px; }
+  .cal-event-time { font-size: 12px; font-weight: 600; color: var(--gray-700); white-space: nowrap; }
+
+  .legend-row {
+    display: flex; gap: 14px; flex-wrap: wrap;
+    padding: 12px 16px;
+    background: var(--white); border-top: 1px solid var(--gray-100); border-bottom: 1px solid var(--gray-100);
+    margin-bottom: 4px;
+  }
+  .legend-item { display: flex; align-items: center; gap: 5px; }
+  .legend-dot { width: 8px; height: 8px; border-radius: 50%; }
+  .legend-item span { font-size: 11px; color: var(--gray-600); font-weight: 500; }
+
+  /* === SCROLLBAR === */
+  ::-webkit-scrollbar { width: 3px; }
+  ::-webkit-scrollbar-thumb { background: var(--gray-300); border-radius: 2px; }
+
+  /* === FLOATING LABEL NOTE === */
+  .design-note {
+    background: var(--white);
+    border-radius: 12px;
+    padding: 10px 16px;
+    font-size: 12px;
+    color: var(--gray-500);
+    max-width: 360px;
+    text-align: center;
+    box-shadow: var(--shadow-card);
+    border-left: 3px solid var(--blue);
+  }
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <h1>Smart Academic Planner</h1>
+  <p>Mobile UI Prototype · Android · 360×720px · Design Thinking Project</p>
+</div>
+
+<div class="screens-grid">
+
+  <!-- =================== SCREEN 1: LOGIN =================== -->
+  <div class="phone-wrap">
+    <div class="screen-label">01 · Login Screen</div>
+    <div class="phone">
+      <div class="status-bar">
+        <span class="time">9:41</span>
+        <div class="icons"><span>●●●</span><span>WiFi</span><span>🔋</span></div>
+      </div>
+      <div class="screen login-screen">
+        <div class="login-logo-area">
+          <div class="login-logo-icon">
+            <svg viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="4" y="4" width="26" height="26" rx="6" stroke="white" stroke-width="2.2"/>
+              <path d="M9 12h16M9 17h10M9 22h12" stroke="white" stroke-width="2.2" stroke-linecap="round"/>
+              <circle cx="25" cy="22" r="5" fill="white" fill-opacity="0.3" stroke="white" stroke-width="1.5"/>
+              <path d="M23 22l1.5 1.5L27 20.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <h2>Smart Academic<br>Planner</h2>
+          <p>Plan Smart. Study Better.</p>
+        </div>
+        <div class="login-form">
+          <div class="input-group">
+            <label>EMAIL ADDRESS</label>
+            <div class="input-field focused">
+              <span class="icon">✉</span>
+              <span style="font-size:14px;color:#2D3550;">alex.student@gmail.com</span>
+            </div>
+          </div>
+          <div class="input-group">
+            <label>PASSWORD</label>
+            <div class="input-field">
+              <span class="icon">🔒</span>
+              <span class="placeholder">Enter your password</span>
+            </div>
+          </div>
+          <div class="forgot-row">
+            <a href="#">Forgot Password?</a>
+          </div>
+          <button class="btn-primary">Log In</button>
+          <div class="divider-row">
+            <div class="line"></div>
+            <span>or continue with</span>
+            <div class="line"></div>
+          </div>
+          <button class="btn-google">
+            <div class="g-icon"></div>
+            Continue with Google
+          </button>
+          <div class="signup-row">
+            <span>Don't have an account? </span>
+            <a href="#">Sign Up</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="design-note">Centered layout · Focused field state · 24px padding · Sora + DM Sans</div>
+  </div>
+
+  <!-- =================== SCREEN 2: DASHBOARD =================== -->
+  <div class="phone-wrap">
+    <div class="screen-label">02 · Dashboard</div>
+    <div class="phone">
+      <div class="status-bar">
+        <span class="time">9:41</span>
+        <div class="icons"><span>●●●</span><span>WiFi</span><span>🔋</span></div>
+      </div>
+      <div class="screen dashboard-screen">
+        <div class="dash-header">
+          <div class="dash-top-row">
+            <div>
+              <div class="dash-greeting">Good morning 👋</div>
+              <div class="dash-name">Hello, Alex!</div>
+            </div>
+            <div class="avatar">A</div>
+          </div>
+          <div class="dash-stats">
+            <div class="dash-stat">
+              <div class="val">4</div>
+              <div class="lbl">Tasks Today</div>
+            </div>
+            <div class="dash-stat">
+              <div class="val">2</div>
+              <div class="lbl">Due Soon</div>
+            </div>
+            <div class="dash-stat">
+              <div class="val">6</div>
+              <div class="lbl">Lectures</div>
+            </div>
+          </div>
+        </div>
+        <div class="dash-body">
+          <!-- Today's Tasks -->
+          <div>
+            <div class="section-head">
+              <h3>Today's Tasks</h3>
+              <a href="#">See all</a>
+            </div>
+            <div class="task-card">
+              <div class="task-dot" style="background:var(--red)"></div>
+              <div class="task-info">
+                <div class="name">DSA Assignment</div>
+                <div class="sub">Data Structures · Due 11:59 PM</div>
+              </div>
+              <span class="task-badge badge-red">Urgent</span>
+            </div>
+            <div class="task-card">
+              <div class="task-dot" style="background:var(--yellow)"></div>
+              <div class="task-info">
+                <div class="name">Math Revision</div>
+                <div class="sub">Calculus · Chapter 4–5</div>
+              </div>
+              <span class="task-badge badge-yellow">In 2 days</span>
+            </div>
+            <div class="task-card">
+              <div class="task-dot" style="background:var(--green)"></div>
+              <div class="task-info">
+                <div class="name">OS Lab Report</div>
+                <div class="sub">Operating Systems</div>
+              </div>
+              <span class="task-badge badge-green">Done</span>
+            </div>
+          </div>
+          <!-- Upcoming Deadlines -->
+          <div>
+            <div class="section-head">
+              <h3>Upcoming Deadlines</h3>
+              <a href="#">Calendar</a>
+            </div>
+            <div class="deadline-card urgent">
+              <div class="task-info">
+                <div class="name">DSA Assignment Submission</div>
+                <div class="date">📅 Today · 11:59 PM</div>
+              </div>
+              <span class="task-badge badge-red">Today</span>
+            </div>
+            <div class="deadline-card warning">
+              <div class="task-info">
+                <div class="name">CN Project Proposal</div>
+                <div class="date">📅 Apr 18 · 5:00 PM</div>
+              </div>
+              <span class="task-badge badge-yellow">2 days</span>
+            </div>
+          </div>
+          <!-- Action Buttons -->
+          <div class="btn-row">
+            <div class="btn-outline">＋ Add Task</div>
+            <div class="btn-solid">📅 Calendar</div>
+          </div>
+        </div>
+        <div class="bottom-nav">
+          <div class="nav-item active">
+            <span class="nav-icon">🏠</span>
+            <span class="nav-lbl">Home</span>
+          </div>
+          <div class="nav-item">
+            <span class="nav-icon">📋</span>
+            <span class="nav-lbl">Assignments</span>
+          </div>
+          <div class="nav-item">
+            <span class="nav-icon">📅</span>
+            <span class="nav-lbl">Calendar</span>
+          </div>
+          <div class="nav-item">
+            <span class="nav-icon">🎓</span>
+            <span class="nav-lbl">Lectures</span>
+          </div>
+          <div class="nav-item">
+            <span class="nav-icon">⚙️</span>
+            <span class="nav-lbl">Settings</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="design-note">Blue hero header · Stat chips · Color-coded cards · Bottom nav</div>
+  </div>
+
+  <!-- =================== SCREEN 3: ASSIGNMENTS =================== -->
+  <div class="phone-wrap">
+    <div class="screen-label">03 · Assignment Tracker</div>
+    <div class="phone">
+      <div class="status-bar">
+        <span class="time">9:41</span>
+        <div class="icons"><span>●●●</span><span>WiFi</span><span>🔋</span></div>
+      </div>
+      <div class="screen assign-screen">
+        <div class="inner-header">
+          <div class="back-btn">←</div>
+          <h2>Assignments</h2>
+          <span class="header-action">🔍</span>
+        </div>
+        <div class="filter-tabs">
+          <div class="filter-tab active">All</div>
+          <div class="filter-tab">Pending</div>
+          <div class="filter-tab">Completed</div>
+          <div class="filter-tab">Urgent</div>
+        </div>
+        <div class="list-body">
+          <div class="assign-card urgent">
+            <div class="assign-top">
+              <span class="assign-subject">DSA</span>
+              <span class="status-pill pill-red">🔴 Urgent</span>
+            </div>
+            <div class="assign-name">Linked List Implementation</div>
+            <div class="assign-bottom">
+              <div class="assign-date">📅 Apr 16 · 11:59 PM</div>
+              <span style="font-size:11px;color:var(--red);font-weight:600;">Due Today</span>
+            </div>
+          </div>
+          <div class="assign-card warning">
+            <div class="assign-top">
+              <span class="assign-subject">CN</span>
+              <span class="status-pill pill-yellow">🟡 Upcoming</span>
+            </div>
+            <div class="assign-name">Network Topology Report</div>
+            <div class="assign-bottom">
+              <div class="assign-date">📅 Apr 18 · 5:00 PM</div>
+              <span style="font-size:11px;color:var(--yellow);font-weight:600;">2 days left</span>
+            </div>
+          </div>
+          <div class="assign-card warning">
+            <div class="assign-top">
+              <span class="assign-subject" style="background:#FFF3E0;color:#E65100;">MATH</span>
+              <span class="status-pill pill-yellow">🟡 Upcoming</span>
+            </div>
+            <div class="assign-name">Calculus Problem Set #4</div>
+            <div class="assign-bottom">
+              <div class="assign-date">📅 Apr 21 · 11:59 PM</div>
+              <span style="font-size:11px;color:var(--yellow);font-weight:600;">5 days left</span>
+            </div>
+          </div>
+          <div class="assign-card done">
+            <div class="assign-top">
+              <span class="assign-subject" style="background:var(--green-light);color:var(--green);">OS</span>
+              <span class="status-pill pill-green">✅ Completed</span>
+            </div>
+            <div class="assign-name">Process Scheduling Lab Report</div>
+            <div class="assign-bottom">
+              <div class="assign-date">📅 Apr 14 · Done</div>
+              <span style="font-size:11px;color:var(--green);font-weight:600;">Submitted</span>
+            </div>
+          </div>
+        </div>
+        <button class="fab">＋&nbsp; Add Assignment</button>
+        <div class="bottom-nav">
+          <div class="nav-item"><span class="nav-icon">🏠</span><span class="nav-lbl">Home</span></div>
+          <div class="nav-item active"><span class="nav-icon">📋</span><span class="nav-lbl">Assignments</span></div>
+          <div class="nav-item"><span class="nav-icon">📅</span><span class="nav-lbl">Calendar</span></div>
+          <div class="nav-item"><span class="nav-icon">🎓</span><span class="nav-lbl">Lectures</span></div>
+          <div class="nav-item"><span class="nav-icon">⚙️</span><span class="nav-lbl">Settings</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="design-note">Left border color-coding · Filter tabs · FAB button · Red/Yellow/Green system</div>
+  </div>
+
+  <!-- =================== SCREEN 4: REMINDERS =================== -->
+  <div class="phone-wrap">
+    <div class="screen-label">04 · Reminder Settings</div>
+    <div class="phone">
+      <div class="status-bar">
+        <span class="time">9:41</span>
+        <div class="icons"><span>●●●</span><span>WiFi</span><span>🔋</span></div>
+      </div>
+      <div class="screen reminder-screen">
+        <div class="inner-header">
+          <div class="back-btn">←</div>
+          <h2>Study Reminders</h2>
+          <span class="header-action">ℹ️</span>
+        </div>
+        <div class="reminder-body">
+          <!-- Preview notification -->
+          <div class="reminder-preview">
+            <div class="lbl">Preview Notification</div>
+            <div class="text">📚 Reminder: Study DSA at 6:00 PM</div>
+            <div class="time-chip">⏰ Today · 6:00 PM</div>
+          </div>
+
+          <!-- Master toggle -->
+          <div class="section-card">
+            <div class="option-row" style="border-top:none;">
+              <div class="option-left">
+                <div class="option-icon">🔔</div>
+                <div class="option-text">
+                  <div class="title">Enable Reminders</div>
+                  <div class="sub">Receive study notifications</div>
+                </div>
+              </div>
+              <div class="toggle on"></div>
+            </div>
+          </div>
+
+          <!-- Frequency options -->
+          <div class="section-card">
+            <div class="section-card-head">Reminder Frequency</div>
+            <div class="option-row">
+              <div class="option-left">
+                <div class="radio-circle selected"></div>
+                <div class="option-text">
+                  <div class="title">Every 1 Hour</div>
+                  <div class="sub">Frequent reminders</div>
+                </div>
+              </div>
+              <span style="font-size:11px;background:var(--blue-light);color:var(--blue);padding:3px 10px;border-radius:20px;font-weight:600;">Active</span>
+            </div>
+            <div class="option-row">
+              <div class="option-left">
+                <div class="radio-circle"></div>
+                <div class="option-text">
+                  <div class="title">Every 2 Hours</div>
+                  <div class="sub">Moderate reminders</div>
+                </div>
+              </div>
+            </div>
+            <div class="option-row">
+              <div class="option-left">
+                <div class="radio-circle"></div>
+                <div class="option-text">
+                  <div class="title">Custom Time</div>
+                  <div class="sub">Set your own schedule</div>
+                </div>
+              </div>
+              <span style="font-size:18px;color:var(--gray-500);">›</span>
+            </div>
+          </div>
+
+          <!-- Subject-specific toggles -->
+          <div class="section-card">
+            <div class="section-card-head">Subject Reminders</div>
+            <div class="option-row">
+              <div class="option-left">
+                <div class="option-icon" style="background:#EEF2FF">📐</div>
+                <div class="option-text">
+                  <div class="title">DSA Reminder</div>
+                  <div class="sub">6:00 PM daily</div>
+                </div>
+              </div>
+              <div class="toggle on"></div>
+            </div>
+            <div class="option-row">
+              <div class="option-left">
+                <div class="option-icon" style="background:#FFF3E0">📊</div>
+                <div class="option-text">
+                  <div class="title">Math Reminder</div>
+                  <div class="sub">8:00 PM daily</div>
+                </div>
+              </div>
+              <div class="toggle on"></div>
+            </div>
+            <div class="option-row">
+              <div class="option-left">
+                <div class="option-icon" style="background:#EDFBF4">💻</div>
+                <div class="option-text">
+                  <div class="title">OS Reminder</div>
+                  <div class="sub">7:00 PM · Tue, Thu</div>
+                </div>
+              </div>
+              <div class="toggle"></div>
+            </div>
+          </div>
+        </div>
+        <div class="bottom-nav">
+          <div class="nav-item"><span class="nav-icon">🏠</span><span class="nav-lbl">Home</span></div>
+          <div class="nav-item"><span class="nav-icon">📋</span><span class="nav-lbl">Assignments</span></div>
+          <div class="nav-item"><span class="nav-icon">📅</span><span class="nav-lbl">Calendar</span></div>
+          <div class="nav-item"><span class="nav-icon">🎓</span><span class="nav-lbl">Lectures</span></div>
+          <div class="nav-item active"><span class="nav-icon">⚙️</span><span class="nav-lbl">Settings</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="design-note">Live notification preview · Radio options · Per-subject toggles · Section cards</div>
+  </div>
+
+  <!-- =================== SCREEN 5: LECTURES =================== -->
+  <div class="phone-wrap">
+    <div class="screen-label">05 · Lecture Tracker</div>
+    <div class="phone">
+      <div class="status-bar">
+        <span class="time">9:41</span>
+        <div class="icons"><span>●●●</span><span>WiFi</span><span>🔋</span></div>
+      </div>
+      <div class="screen lecture-screen">
+        <div class="inner-header">
+          <div class="back-btn">←</div>
+          <h2>Lectures</h2>
+          <span class="header-action">＋</span>
+        </div>
+        <div class="filter-tabs">
+          <div class="filter-tab active">Today</div>
+          <div class="filter-tab">This Week</div>
+          <div class="filter-tab">⭐ Important</div>
+        </div>
+        <div class="list-body">
+          <!-- Lecture 1 -->
+          <div class="lecture-card">
+            <div class="lecture-top">
+              <div class="subject-badge-wrap">
+                <span class="lecture-subject">DSA</span>
+                <div class="lecture-name">Binary Trees & Traversal</div>
+                <div class="lecture-time">🕘 9:00 AM · Room 301 · Prof. Sharma</div>
+              </div>
+            </div>
+            <div class="lecture-actions">
+              <div class="act-btn act-star active">⭐ Important</div>
+              <div class="act-btn act-check active">✔ Attended</div>
+              <div class="act-btn act-miss">❌ Missed</div>
+            </div>
+            <div class="note-area">
+              <div class="note-text">Review pre/in/post-order traversal before next class.</div>
+            </div>
+          </div>
+          <!-- Lecture 2 -->
+          <div class="lecture-card">
+            <div class="lecture-top">
+              <div class="subject-badge-wrap">
+                <span class="lecture-subject" style="background:#FFF3E0;color:#E65100;">MATH</span>
+                <div class="lecture-name">Integration by Parts</div>
+                <div class="lecture-time">🕙 11:00 AM · Room 204 · Prof. Gupta</div>
+              </div>
+            </div>
+            <div class="lecture-actions">
+              <div class="act-btn act-star">⭐ Important</div>
+              <div class="act-btn act-check active">✔ Attended</div>
+              <div class="act-btn act-miss">❌ Missed</div>
+            </div>
+            <div class="note-area">
+              <div class="note-placeholder">Tap to add notes…</div>
+            </div>
+          </div>
+          <!-- Lecture 3 -->
+          <div class="lecture-card">
+            <div class="lecture-top">
+              <div class="subject-badge-wrap">
+                <span class="lecture-subject" style="background:#F3E5F5;color:#7B1FA2;">CN</span>
+                <div class="lecture-name">TCP/IP Model Overview</div>
+                <div class="lecture-time">🕑 2:00 PM · Room 402 · Prof. Mehta</div>
+              </div>
+            </div>
+            <div class="lecture-actions">
+              <div class="act-btn act-star">⭐ Important</div>
+              <div class="act-btn act-check">✔ Attended</div>
+              <div class="act-btn act-miss active">❌ Missed</div>
+            </div>
+            <div class="note-area">
+              <div class="note-text">Get notes from Priya. Missed due to doctor visit.</div>
+            </div>
+          </div>
+        </div>
+        <div class="bottom-nav">
+          <div class="nav-item"><span class="nav-icon">🏠</span><span class="nav-lbl">Home</span></div>
+          <div class="nav-item"><span class="nav-icon">📋</span><span class="nav-lbl">Assignments</span></div>
+          <div class="nav-item"><span class="nav-icon">📅</span><span class="nav-lbl">Calendar</span></div>
+          <div class="nav-item active"><span class="nav-icon">🎓</span><span class="nav-lbl">Lectures</span></div>
+          <div class="nav-item"><span class="nav-icon">⚙️</span><span class="nav-lbl">Settings</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="design-note">3-action row per lecture · Active states · Notes field · Color-coded subjects</div>
+  </div>
+
+  <!-- =================== SCREEN 6: CALENDAR =================== -->
+  <div class="phone-wrap">
+    <div class="screen-label">06 · Calendar View</div>
+    <div class="phone">
+      <div class="status-bar">
+        <span class="time">9:41</span>
+        <div class="icons"><span>●●●</span><span>WiFi</span><span>🔋</span></div>
+      </div>
+      <div class="screen cal-screen">
+        <div class="cal-header-bar">
+          <div class="back-btn">←</div>
+          <div class="cal-month-nav">
+            <button class="cal-nav-btn">‹</button>
+            <div class="cal-month-title">April 2026</div>
+            <button class="cal-nav-btn">›</button>
+          </div>
+          <span class="header-action">＋</span>
+        </div>
+        <div class="cal-body">
+          <div class="cal-weekdays">
+            <div class="cal-weekday">S</div><div class="cal-weekday">M</div>
+            <div class="cal-weekday">T</div><div class="cal-weekday">W</div>
+            <div class="cal-weekday">T</div><div class="cal-weekday">F</div>
+            <div class="cal-weekday">S</div>
+          </div>
+          <div class="cal-grid">
+            <!-- Week 1 offset (Apr 1 = Wed) -->
+            <div class="cal-day other-month">30</div>
+            <div class="cal-day other-month">31</div>
+            <div class="cal-day">1</div>
+            <div class="cal-day">2</div>
+            <div class="cal-day">3</div>
+            <div class="cal-day">4</div>
+            <div class="cal-day">5</div>
+            <!-- Week 2 -->
+            <div class="cal-day">6</div>
+            <div class="cal-day">7<div class="dots"><div class="dot" style="background:var(--blue)"></div></div></div>
+            <div class="cal-day">8</div>
+            <div class="cal-day">9</div>
+            <div class="cal-day">10<div class="dots"><div class="dot" style="background:var(--yellow)"></div></div></div>
+            <div class="cal-day">11</div>
+            <div class="cal-day">12</div>
+            <!-- Week 3 -->
+            <div class="cal-day">13</div>
+            <div class="cal-day">14<div class="dots"><div class="dot" style="background:var(--green)"></div></div></div>
+            <div class="cal-day">15</div>
+            <div class="cal-day today">16</div>
+            <div class="cal-day">17</div>
+            <div class="cal-day">18<div class="dots"><div class="dot" style="background:var(--red)"></div><div class="dot" style="background:var(--yellow)"></div></div></div>
+            <div class="cal-day">19</div>
+            <!-- Week 4 -->
+            <div class="cal-day">20</div>
+            <div class="cal-day selected">21<div class="dots"><div class="dot" style="background:var(--yellow)"></div></div></div>
+            <div class="cal-day">22</div>
+            <div class="cal-day">23<div class="dots"><div class="dot" style="background:var(--blue)"></div></div></div>
+            <div class="cal-day">24</div>
+            <div class="cal-day">25<div class="dots"><div class="dot" style="background:var(--red)"></div></div></div>
+            <div class="cal-day">26</div>
+            <!-- Week 5 -->
+            <div class="cal-day">27</div>
+            <div class="cal-day">28</div>
+            <div class="cal-day">29</div>
+            <div class="cal-day">30</div>
+            <div class="cal-day other-month">1</div>
+            <div class="cal-day other-month">2</div>
+            <div class="cal-day other-month">3</div>
+          </div>
+
+          <div class="legend-row">
+            <div class="legend-item"><div class="legend-dot" style="background:var(--red)"></div><span>Deadline</span></div>
+            <div class="legend-item"><div class="legend-dot" style="background:var(--blue)"></div><span>Study</span></div>
+            <div class="legend-item"><div class="legend-dot" style="background:var(--yellow)"></div><span>Assignment</span></div>
+            <div class="legend-item"><div class="legend-dot" style="background:var(--green)"></div><span>Lecture</span></div>
+          </div>
+
+          <div class="cal-events">
+            <div class="cal-events-head">April 16 · Today</div>
+            <div class="cal-event">
+              <div class="cal-event-bar" style="background:var(--red)"></div>
+              <div class="cal-event-info">
+                <div class="name">DSA Assignment Due</div>
+                <div class="meta">Data Structures · Deadline</div>
+              </div>
+              <div class="cal-event-time">11:59 PM</div>
+            </div>
+            <div class="cal-event">
+              <div class="cal-event-bar" style="background:var(--blue)"></div>
+              <div class="cal-event-info">
+                <div class="name">Study: Binary Trees</div>
+                <div class="meta">DSA · Study Schedule</div>
+              </div>
+              <div class="cal-event-time">6:00 PM</div>
+            </div>
+            <div class="cal-event">
+              <div class="cal-event-bar" style="background:var(--green)"></div>
+              <div class="cal-event-info">
+                <div class="name">CN Lecture ⭐</div>
+                <div class="meta">Important · Room 402</div>
+              </div>
+              <div class="cal-event-time">2:00 PM</div>
+            </div>
+          </div>
+        </div>
+        <div class="bottom-nav">
+          <div class="nav-item"><span class="nav-icon">🏠</span><span class="nav-lbl">Home</span></div>
+          <div class="nav-item"><span class="nav-icon">📋</span><span class="nav-lbl">Assignments</span></div>
+          <div class="nav-item active"><span class="nav-icon">📅</span><span class="nav-lbl">Calendar</span></div>
+          <div class="nav-item"><span class="nav-icon">🎓</span><span class="nav-lbl">Lectures</span></div>
+          <div class="nav-item"><span class="nav-icon">⚙️</span><span class="nav-lbl">Settings</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="design-note">Monthly grid · Color dot indicators · Day event list · 4-type legend</div>
+  </div>
+
+</div>
+</body>
+</html>
